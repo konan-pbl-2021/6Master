@@ -6,19 +6,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class EnterNameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_enter_name);
 
-        //startButtonを押すとSelectNumberActivityに移動
-        Button startButton = (Button)findViewById(R.id.startButton);
-        startButton.setOnClickListener(new View.OnClickListener() {
+        Button okButton = (Button)findViewById(R.id.okButton);
+        okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,SelectNumberActivity.class);
+                Intent intent = new Intent(EnterNameActivity.this,ManagerActivity.class);
                 startActivity(intent);
             }
         });
