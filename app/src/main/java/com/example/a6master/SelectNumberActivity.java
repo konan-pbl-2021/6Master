@@ -7,18 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class SelectNumberActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_select_number);
 
-        //startButtonを押すとSelectNumberActivityに移動
-        Button startButton = (Button)findViewById(R.id.startButton);
-        startButton.setOnClickListener(new View.OnClickListener() {
+        //1人buttonを押すとEnterNameActivityに移動
+        Button onePlayButton = (Button)findViewById(R.id.onePlayButton);
+        onePlayButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,SelectNumberActivity.class);
+                Intent intent = new Intent(SelectNumberActivity.this, EnterNameActivity.class);
                 startActivity(intent);
             }
         });
