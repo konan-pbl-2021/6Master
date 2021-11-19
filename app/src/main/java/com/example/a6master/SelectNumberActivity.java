@@ -22,5 +22,32 @@ public class SelectNumberActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //2人buttonを押すとEnterName2Activityに移動
+        Button twoPlayButton = (Button)findViewById(R.id.twoPlayButton);
+        twoPlayButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(SelectNumberActivity.this, EnterName2Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        //3人buttonを押すとEnterName3Activityに移動
+        Button threePlayButton = (Button)findViewById(R.id.threePlayButton);
+        threePlayButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(SelectNumberActivity.this, EnterName3Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        //4人buttonを押すとEnterName4Activityに移動
+        Button fourPlayButton = (Button)findViewById(R.id.fourPlayButton);
+        fourPlayButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(SelectNumberActivity.this, EnterName4Activity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
