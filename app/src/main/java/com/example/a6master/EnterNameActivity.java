@@ -11,16 +11,24 @@ import android.widget.TextView;
 
 public class EnterNameActivity extends AppCompatActivity {
 
+    public static final String EXTRA_MESSAGE = "YourPackageName.MESSAGE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_name);
 
+        final EditText editText = findViewById(R.id.enterNameText);
+
         Button okButton = (Button)findViewById(R.id.okButton);
         okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(EnterNameActivity.this,ManagerActivity.class);
-                startActivity(intent);
+                Intent sendName = new Intent(getApplication(), ManagerActivity.class);
+                if(editText.getText() != null){
+                    String str = editText.getText().toString();
+                    sendName.putExtra(EXTRA_MESSAGE, str);
+                }
+                startActivity(sendName);
             }
         });
     }
