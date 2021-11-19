@@ -28,6 +28,8 @@ public class EnterNameActivity extends AppCompatActivity {
                     String str = editText.getText().toString();
                     sendName.putExtra(EXTRA_MESSAGE1, str);
                 }
+                int hito=1;
+                sendName.putExtra("hito", hito);
                 startActivity(sendName);
             }
         });
