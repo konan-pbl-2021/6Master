@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class EnterNameActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "YourPackageName.MESSAGE";
+    public static final String EXTRA_MESSAGE1 = "YourPackageName.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class EnterNameActivity extends AppCompatActivity {
                 Intent sendName = new Intent(getApplication(), ManagerActivity.class);
                 if(editText.getText() != null){
                     String str = editText.getText().toString();
-                    sendName.putExtra(EXTRA_MESSAGE, str);
+                    sendName.putExtra(EXTRA_MESSAGE1, str);
                 }
                 startActivity(sendName);
             }
