@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/User/AndroidStudioProjects/6Master/app/src/main/res/layout/activity_Enter_name.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/6Master/app/src/main/res/layout/activity_enter_name.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/6Master/app/src/main/res/layout/activity_enter_name2.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/AndroidStudioProjects/6Master/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/6Master/app/src/main/res/layout/activity_manager.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/6Master/app/src/main/res/layout/activity_press_name.xml" value="0.16666666666666666" />
@@ -12,7 +13,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
