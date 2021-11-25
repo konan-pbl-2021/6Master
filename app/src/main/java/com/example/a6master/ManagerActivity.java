@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,7 +14,14 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import javax.xml.transform.Result;
+
 public class ManagerActivity extends AppCompatActivity {
+
+    public static final String EXTRA_NAME1 = "YourPackageName.NAME1";
+    public static final String EXTRA_NAME2 = "YourPackageName.NAME2";
+    public static final String EXTRA_NAME3 = "YourPackageName.NAME3";
+    public static final String EXTRA_NAME4 = "YourPackageName.NAME4";
 
     private String Name[] = new String[4];
     private ImageView Masses[] = new ImageView[10];
@@ -21,7 +30,19 @@ public class ManagerActivity extends AppCompatActivity {
     private int PlayerNum = 0;
     private int Num = 0;
     private TextView Player = null;
+    private TextView Name1 = null;
+    private TextView Name2 = null;
+    private TextView Name3 = null;
+    private TextView Name4 = null;
+    private TextView ScoresText[] = new TextView[4];
+
     private int NowPosition[] = new int[4];
+    private int PointX[] = new int[4];
+    private int PointY[] = new int[4];
+    private int Scores[] = new int[4];
+
+    private int Rank = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +57,8 @@ public class ManagerActivity extends AppCompatActivity {
         massInit();
         // プレイヤー用の変数を初期化するための関数呼び出し
         playersInit();
+        //スコア用の変数を初期化するための関数呼び出し
+        setScores();
         //プレイする人数以外の駒を非表示にする関数を呼び出し
         playerHide();
 
@@ -45,23 +68,42 @@ public class ManagerActivity extends AppCompatActivity {
         saikoro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                while(NowPosition[Num] == 9) {
+                    Num++;
+                    if (Num > PlayerNum - 1) {
+                        Num = 0;
+                    }
+                }
+
                 Random random = new Random();
-                int randomValue = random.nextInt(6)+1;
+                int randomValue = random.nextInt(6) + 1;
 
                 NowPosition[Num] = NowPosition[Num] + randomValue;
+                if (NowPosition[Num] > 9) {
+                    NowPosition[Num] = 9 - (NowPosition[Num] - 9);
+                }
+
                 int massPosition[] = new int[2];
                 Masses[NowPosition[Num]].getLocationInWindow(massPosition);
                 Players[Num].getLocationInWindow(PlayerPosition[Num]);
-                TranslateAnimation translate = new TranslateAnimation(0, massPosition[0]-PlayerPosition[Num][0], 0, massPosition[1]-PlayerPosition[Num][1]);
+                TranslateAnimation translate = new TranslateAnimation(PointX[Num], massPosition[0] - PlayerPosition[Num][0], PointY[Num], massPosition[1] - PlayerPosition[Num][1]);
+                PointX[Num] = massPosition[0] - PlayerPosition[Num][0];
+                PointY[Num] = massPosition[1] - PlayerPosition[Num][1];
                 translate.setDuration(500);
                 translate.setFillAfter(true);
                 Players[Num].startAnimation(translate);
 
+                score();
+
+                Player.setText(Name[Num]);
+                ScoresText[Num].setText(String.valueOf(Scores[Num]));
+
                 Num++;
-                if(Num > PlayerNum-1) {
+                if (Num > PlayerNum - 1) {
                     Num = 0;
                 }
-                Player.setText(Name[Num]);
+
+                intent();
             }
         });
     }
@@ -87,6 +129,15 @@ public class ManagerActivity extends AppCompatActivity {
             Name[2] = intentMain.getStringExtra(EnterName4Activity.EXTRA_MESSAGE3);
             Name[3] = intentMain.getStringExtra(EnterName4Activity.EXTRA_MESSAGE4);
         }
+
+        Name1 = findViewById(R.id.name1);
+        Name2 = findViewById(R.id.name2);
+        Name3 = findViewById(R.id.name3);
+        Name4 = findViewById(R.id.name4);
+        Name1.setText(Name[0]);
+        Name2.setText(Name[1]);
+        Name3.setText(Name[2]);
+        Name4.setText(Name[3]);
     }
     private void massInit()
     {
@@ -114,6 +165,81 @@ public class ManagerActivity extends AppCompatActivity {
     private void playerHide() {
         for(int i = PlayerNum; i < 4; i++) {
             Players[i].setVisibility(View.GONE);
+            ScoresText[i].setVisibility(View.GONE);
+        }
+    }
+
+    private void score() {
+        if (NowPosition[Num] == 1) {
+            Scores[Num] += 5;
+        } else if (NowPosition[Num] == 2){
+            Scores[Num] += 3;
+        }else if (NowPosition[Num] == 3){
+            Scores[Num] -= 2;
+        }else if (NowPosition[Num] == 4){
+            Scores[Num] += 4;
+        }else if (NowPosition[Num] == 5){
+            Scores[Num] -= 3;
+        }else if (NowPosition[Num] == 6){
+            Scores[Num] += 10;
+        }else if (NowPosition[Num] == 7){
+            Scores[Num] -= 5;
+        }else if (NowPosition[Num] == 8){
+            Scores[Num] -= 3;
+        }else if (NowPosition[Num] == 9){
+            goal();
+        }
+    }
+
+    private void goal() {
+        if(Rank == 1) {
+            Scores[Num] += 30;
+        }else if(Rank == 2){
+            Scores[Num] += 20;
+        }else if(Rank == 3){
+            Scores[Num] += 15;
+        }else{
+            Scores[Num] += 10;
+        }
+        Rank++;
+    }
+
+    private void setScores(){
+        ScoresText[0] = findViewById(R.id.score1);
+        ScoresText[1] = findViewById(R.id.score2);
+        ScoresText[2] = findViewById(R.id.score3);
+        ScoresText[3] = findViewById(R.id.score4);
+    }
+
+    private void intent() {
+        Intent intent = new Intent(getApplication(), ResultActivity.class);
+
+        intent.putExtra("score1", Scores[0]);
+        intent.putExtra("score2", Scores[1]);
+        intent.putExtra("score3", Scores[2]);
+        intent.putExtra("score4", Scores[3]);
+        intent.putExtra("PlayerNum", PlayerNum);
+        intent.putExtra(EXTRA_NAME1, Name[0]);
+        intent.putExtra(EXTRA_NAME2, Name[1]);
+        intent.putExtra(EXTRA_NAME3, Name[2]);
+        intent.putExtra(EXTRA_NAME4, Name[3]);
+
+        if(PlayerNum == 1) {
+            if(NowPosition[0] == 9) {
+                startActivity(intent);
+            }
+        }else if(PlayerNum == 2) {
+            if((NowPosition[0] == 9) && (NowPosition[1] == 9)) {
+                startActivity(intent);
+            }
+        }else if(PlayerNum == 3) {
+            if ((NowPosition[0] == 9) && (NowPosition[1] == 9) && (NowPosition[2] == 9)) {
+                startActivity(intent);
+            }
+        }else if(PlayerNum == 4) {
+            if ((NowPosition[0] == 9) && (NowPosition[1] == 9) && (NowPosition[2] == 9) && (NowPosition[3] == 9)) {
+                startActivity(intent);
+            }
         }
     }
 }
