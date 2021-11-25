@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class EnterNameActivity extends AppCompatActivity {
 
@@ -20,7 +19,7 @@ public class EnterNameActivity extends AppCompatActivity {
 
         final EditText editText = findViewById(R.id.enterNameText);
 
-        Button okButton = (Button)findViewById(R.id.okButton);
+        Button okButton = findViewById(R.id.okButton);
         okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent sendName = new Intent(getApplication(), ManagerActivity.class);

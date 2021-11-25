@@ -25,7 +25,7 @@ public class EnterName4Activity extends AppCompatActivity {
         final EditText editText3 = findViewById(R.id.enterNameText3);
         final EditText editText4 = findViewById(R.id.enterNameText4);
 
-        Button okButton = (Button)findViewById(R.id.okButton);
+        Button okButton = findViewById(R.id.okButton);
         okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent sendName = new Intent(getApplication(), ManagerActivity.class);

@@ -5,16 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
-
-import javax.xml.transform.Result;
 
 public class ManagerActivity extends AppCompatActivity {
 
@@ -29,7 +25,9 @@ public class ManagerActivity extends AppCompatActivity {
     private int PlayerPosition[][] = new int[4][2];
     private int PlayerNum = 0;
     private int Num = 0;
+
     private TextView Player = null;
+    private TextView Number = null;
     private TextView Name1 = null;
     private TextView Name2 = null;
     private TextView Name3 = null;
@@ -50,6 +48,7 @@ public class ManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manager);
 
         PlayerNum = getIntent().getIntExtra("hito", 0);
+        Number = findViewById(R.id.number);
 
         //名前用の変数を初期化するための関数呼び出し
         nameInit();
@@ -64,8 +63,8 @@ public class ManagerActivity extends AppCompatActivity {
 
         Player.setText(Name[Num]);
 
-        Button saikoro = findViewById(R.id.saikoro);
-        saikoro.setOnClickListener(new View.OnClickListener() {
+        Button daice = findViewById(R.id.daice);
+        daice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 while(NowPosition[Num] == 9) {
@@ -77,6 +76,8 @@ public class ManagerActivity extends AppCompatActivity {
 
                 Random random = new Random();
                 int randomValue = random.nextInt(6) + 1;
+
+                Number.setText(String.valueOf(randomValue));
 
                 NowPosition[Num] = NowPosition[Num] + randomValue;
                 if (NowPosition[Num] > 9) {
