@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //startButtonを押すとSelectNumberActivityに移動
-        Button startButton = (Button)findViewById(R.id.startButton);
+        Button startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,SelectNumberActivity.class);
