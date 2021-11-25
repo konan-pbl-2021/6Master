@@ -25,7 +25,6 @@ public class EnterName2Activity extends AppCompatActivity {
         okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent sendName = new Intent(getApplication(), ManagerActivity.class);
-                Intent sendName2 = new Intent(getApplication(), ManagerActivity.class);
                 if(editText.getText() != null) {
                     String str = editText.getText().toString();
                     sendName.putExtra(EXTRA_MESSAGE1, str);
