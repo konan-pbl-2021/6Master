@@ -69,13 +69,6 @@ public class ManagerActivity extends AppCompatActivity {
         daice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                while(NowPosition[Num] == 9) {
-                    Num++;
-                    if (Num > PlayerNum - 1) {
-                        Num = 0;
-                    }
-                }
-
                 Random random = new Random();
                 int randomValue = random.nextInt(6) + 1;
 
@@ -108,13 +101,16 @@ public class ManagerActivity extends AppCompatActivity {
 
                         ScoresText[Num].setText(String.valueOf(Scores[Num]));
 
-                        //画面遷移させるための関数呼び出し
-                        intent();
-
                         Num++;
                         if (Num > PlayerNum - 1) {
                             Num = 0;
                         }
+
+                        //ゴールした人を飛ばす関数呼び出し
+                        skip();
+
+                        //画面遷移させるための関数呼び出し
+                        intent();
 
                         Player.setText(Name[Num]);
                     }
@@ -231,6 +227,22 @@ public class ManagerActivity extends AppCompatActivity {
         ScoresText[1] = findViewById(R.id.score2);
         ScoresText[2] = findViewById(R.id.score3);
         ScoresText[3] = findViewById(R.id.score4);
+    }
+
+    private void skip() {
+        int count = 0;
+        while(NowPosition[Num] == 9) {
+            count++;
+
+            Num++;
+            if (Num > PlayerNum - 1) {
+                Num = 0;
+            }
+
+            if(count >= PlayerNum) {
+                break;
+            }
+        }
     }
 
     private void intent() {
