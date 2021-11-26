@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -92,19 +94,38 @@ public class ManagerActivity extends AppCompatActivity {
                 PointY[Num] = massPosition[1] - PlayerPosition[Num][1];
                 translate.setDuration(500);
                 translate.setFillAfter(true);
+
+                translate.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        //各マスに止まった時のスコアの処理をする関数呼び出し
+                        score();
+
+                        ScoresText[Num].setText(String.valueOf(Scores[Num]));
+
+                        //画面遷移させるための関数呼び出し
+                        intent();
+
+                        Num++;
+                        if (Num > PlayerNum - 1) {
+                            Num = 0;
+                        }
+
+                        Player.setText(Name[Num]);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+
                 Players[Num].startAnimation(translate);
-
-                score();
-
-                Player.setText(Name[Num]);
-                ScoresText[Num].setText(String.valueOf(Scores[Num]));
-
-                Num++;
-                if (Num > PlayerNum - 1) {
-                    Num = 0;
-                }
-
-                intent();
             }
         });
     }
@@ -213,7 +234,7 @@ public class ManagerActivity extends AppCompatActivity {
     }
 
     private void intent() {
-        Intent intent = new Intent(getApplication(), ResultActivity.class);
+        final Intent intent = new Intent(getApplication(), ResultActivity.class);
 
         intent.putExtra("score1", Scores[0]);
         intent.putExtra("score2", Scores[1]);
@@ -227,19 +248,39 @@ public class ManagerActivity extends AppCompatActivity {
 
         if(PlayerNum == 1) {
             if(NowPosition[0] == 9) {
-                startActivity(intent);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(intent);
+                    }
+                }, 3000);
             }
         }else if(PlayerNum == 2) {
             if((NowPosition[0] == 9) && (NowPosition[1] == 9)) {
-                startActivity(intent);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(intent);
+                    }
+                }, 3000);
             }
         }else if(PlayerNum == 3) {
             if ((NowPosition[0] == 9) && (NowPosition[1] == 9) && (NowPosition[2] == 9)) {
-                startActivity(intent);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(intent);
+                    }
+                }, 3000);
             }
         }else if(PlayerNum == 4) {
             if ((NowPosition[0] == 9) && (NowPosition[1] == 9) && (NowPosition[2] == 9) && (NowPosition[3] == 9)) {
-                startActivity(intent);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(intent);
+                    }
+                }, 3000);
             }
         }
     }
